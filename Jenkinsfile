@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-        label 'linuxagent'
-    }
+    agent any
     tools{
         maven 'local_maven'
     }
@@ -20,7 +18,7 @@ pipeline{
         stage ('Deploy to tomcat server') {
             steps{
 
-                echo "Deployment"
+                deployment adapters: [tomcat9(credentialsID:'tomcatcred',path:'',url:'http://3.90.248.181:8080/')],contextpath:'devOps-tomcat',war:'**/*.war'
             }
         }
     }
